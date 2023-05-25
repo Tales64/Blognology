@@ -1,16 +1,16 @@
 const router = require('express').Router();
-const { Post, User,Comment } = require('../../models');
+const { Blog, User,Comment } = require('../../models');
 
 
 
 router.post('/', async (req, res) => {
     try {
-        const createPost = await Post.create({
+        const createBlog = await Blog.create({
             ...req.body, 
             user_id: req.session.user_id,
         });
 
-        res.status(200).json(createPost);
+        res.status(200).json(createBlog);
     } catch (err) {
         res.status(400).json(err);
     };
@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const postData = await Post.findByPk(req.params.id, {
+        const blogData = await Blog.findByPk(req.params.id, {
             include: [
                 {
                     model: User,
@@ -32,9 +32,9 @@ router.get('/:id', async (req, res) => {
                 }
             ],
         });
-        const post = postData.get({plain:true});
-        res.render('singlePost', {
-            ...post,
+        const blog = blogData.get({plain:true});
+        res.render('singleBlog', {
+            ...blog,
             logged_in: req.session.logged_in
         })
     } catch (err) {
@@ -44,18 +44,18 @@ router.get('/:id', async (req, res) => {
 
 router.delete('/:id', async (req,res) => {
     try {
-        const delPost = await Post.destroy({
+        const delBlog = await Blog.destroy({
             where: {
                 id: req.params.id,
                 user_id: req.session.user_id
             }
         });
 
-        if(!delPost) {
-            res.status(404).json({ message: 'Cannot delete post, no post known'});
+        if(!delBlog) {
+            res.status(404).json({ message: 'Cannot delete blog, no blog known'});
             return;
         }
-        res.status(200).json(delPost);
+        res.status(200).json(delBlog);
     } catch (err) {
         res.status(500).json(err);
     };
