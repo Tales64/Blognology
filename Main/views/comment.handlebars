@@ -1,0 +1,31 @@
+<section id="blogComment">
+    <section class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{dbBlog.title}}</h3>
+            <h5> Posted by {{dbBlog.user.username}} on {{blog.date}}</h5>
+            <p class="card-text">{{dbBlog.desc}}</p>
+        </div>
+    </section>
+        {{#each dbBlog.comments}}
+    <section calss="card">
+    <div class="card-body">
+        <p>Comment</p>
+        <p class="'card-text">{{body}}</p>
+    </div>
+    </section>
+     {{/each}}
+</section>
+
+<section class="card-body">
+    <h3 class="card-title">Comment</h3>
+    <form id="newComment">
+        <div class="card-text"></div>
+        <input id="hideCommentId" hidden="true" value="{{blog.id}}"></input>
+        <textarea id="comment" placeholder="Please leave your comment."></textarea>
+        </div>
+        <button id="create">Submit</button>
+    </form>
+    </div>
+</section>
+
+<script src="./js/comment.js"></script>

@@ -1,0 +1,40 @@
+<h1>Dashbord</h1>
+
+<section class="blog-updates">
+    <div class="card">
+        <div class="card-bpdy">
+            <h3 class="card-title">{{dbBlog.title}}</h3>
+            <h5>Posted on {{dbBlog.date}}</h5>
+            <p class="card-text">{{dbBlog.desc}}></p>
+        </div>
+    </div>
+</section>
+
+
+{{!-- Edit (update/delete) existing blog --}}
+<section class="edit-card-text" id="edit-blog">
+    <div class="card-body">
+            <h3 class="card-title">Edit Blog Post</h3>
+            <form id="edit-blog-post">
+                <div class="card-text">    
+                    <input id="edit-blog-id" hidden="true" value="{{dbBlog.id}}">                
+                    <label for="edit-title">
+                    </label>
+                    <input type="text" id="edit-title" placeholder="{{dbBlog.title}}" >
+                </div>
+                <div class="card-text">
+                    <label for="edit-description">Description
+                    </label>
+                    <textarea id="edit-description">{{dbBlog.desc}}
+                    </textarea>
+                    </input>
+                </div>
+
+                <button id="update">Update</button>
+                <button id="delete">Delete</button>
+
+            </form>
+    </div>
+</section>
+
+<script src="/js/edit.js"></script>
