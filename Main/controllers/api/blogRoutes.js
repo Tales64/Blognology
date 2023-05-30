@@ -1,64 +1,93 @@
 const router = require('express').Router();
-const { Blog, User,Comment } = require('../../models');
+const { User, Blog, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 
+router.post('/', withAuth, async (req, res) => {
+  try {
+    const newBlog = await Blog.create({
+      title:req.body.title,
+      desc:req.body.desc,
+      userId: req.session.user.id
+    });
+    req.session.save(()=>{
+      req.session.logged_In = true;
+      res.status(200).json(newBlog);
+    });
 
-router.post('/', async (req, res) => {
-    try {
-        const createBlog = await Blog.create({
-            ...req.body, 
-            user_id: req.session.user_id,
-        });
-
-        res.status(200).json(createBlog);
-    } catch (err) {
-        res.status(400).json(err);
-    };
+  
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
+router.get('/', async (req, res)=> {
+  Blog.findAll({
+      include:[User, Comment]
+        
+    })
+    .then(blogsData =>{
+      res.json(blogsData);
+    })
+   .catch(err)
+      res.status(500).json(err);
+  
+});
+
+
+
 router.get('/:id', async (req, res) => {
-    try {
-        const blogData = await Blog.findByPk(req.params.id, {
-            include: [
-                {
-                    model: User,
-                    attributes: ['username'],
-                }, 
-                {
-                    model: Comment,
-                    include: [
-                        User
-                    ]
-                }
-            ],
-        });
-        const blog = blogData.get({plain:true});
-        res.render('singleBlog', {
-            ...blog,
-            logged_in: req.session.logged_in
-        })
-    } catch (err) {
-        res.status(500).json(err);
+  Blog.findByPk(req.params.id, {
+    include: [User, Comment]
+  })
+      .then(blogData =>{
+        res.json(blogData);
+      })
+    .catch (err =>{
+      res.status(500).json(err);
+    });      
+});
+
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const blogData = await Blog.destroy({
+      where: {
+        id: req.params.id,
+      
+      },
+    });
+
+    if (!blogData) {
+      res.status(404).json({ message: 'No blog found with this id!' });
+      return;
     }
-})
 
-router.delete('/:id', async (req,res) => {
-    try {
-        const delBlog = await Blog.destroy({
-            where: {
-                id: req.params.id,
-                user_id: req.session.user_id
-            }
-        });
+    res.status(200).json(blogData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-        if(!delBlog) {
-            res.status(404).json({ message: 'Cannot delete blog, no blog known'});
-            return;
-        }
-        res.status(200).json(delBlog);
-    } catch (err) {
-        res.status(500).json(err);
-    };
-})
 
-module.exports = router; 
+router.put('/:id', async (req, res) => {
+  try {
+    const blogData = await Blog.update(
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    if (!blogData) {
+      res.status(404).json({ message: 'No blog found with this id!' });
+      return;
+    }
+   
+    res.status(200).json(blogData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+module.exports = router;
