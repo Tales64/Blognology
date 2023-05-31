@@ -1,25 +1,16 @@
-<!-- For each blog post, the 'blog-details' partial is used to render the blog data -->
+<h1>Homepage</h1>
 
-  <div class="container">
-    <header class="container-home">
-      <h2>
-        Home Page
-      </h2>
-    </header>
-      <main class="container-main">
-        {{#each blogs as |blog|}}
+{{#each posts}}
+<a href="/post/{{id}}" class="post-card" style="text-decoration: none;color: black;">
+<div class="card" style="border: solid black;margin: 5%;">
+    <div class="title">
+        <h3 style="margin: 1rem;">{{title}}</h3>
+        <p style="padding: 1rem;margin: 0;">{{User.username}}</p>
+        <p style="padding: 1rem;margin: 0;">{{createdAt}}</p>
+    </div>
+<p style="padding: 1rem;margin: 0;">{{body}}</p>
+</div>   
+{{/each}}
+</a>
 
-      <section class="card">
-        <a href="/blogs/{{blog.id}}" class="card-body">
-        <h3 class="card-title">{{blog.title}}</h3>
-        <h5>Posted by {{user.username}} on {{blog.date}}</h5>
-        <p class="card-text">{{blog.desc}}</p>
-        
-        </a>
-
-      </section>
-        {{/each}}
-
-
-
- 
+<script src="/js/homepage.js"></script>

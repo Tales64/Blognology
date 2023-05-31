@@ -1,0 +1,17 @@
+[
+  {
+      "title":"This is a title",
+      "body": "This is the first test post!",
+      "UserId": 1
+  },
+  {
+      "title":"This is a second title",
+      "body": "This is the second test post!",
+      "UserId": 2
+  },
+  {
+      "title":"This is a third title",
+      "body": "This is the third test post!",
+      "UserId": 3
+  }
+]

@@ -1,27 +1,52 @@
-const loginFormHandler = async (event) => {
-  // Stop the browser from submitting the form so we can do so with JavaScript
-  event.preventDefault();
+const signUpBtn = document.getElementById('signUpBtn');
+const loginBtn = document.getElementById('loginBtn');
 
-  // Gather the data from the form elements on the page
-  const username = document.querySelector('#username-login').value.trim();
-  const password = document.querySelector('#password-login').value.trim();
-
-  if (username && password) {
-    // Send the username and password to the server
-    const response = await fetch('/api/users/login', {
-      method: 'POST',
-      body: JSON.stringify({ username, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    if (response.ok) {
-      document.location.replace('/');
-    } else {
-      alert('Failed to log in');
+// login route
+loginBtn.addEventListener("click", (e)=>{
+    console.log('-----------------login btn clicked!-------------------------')
+    e.preventDefault();
+    const userObj = {
+        username:document.querySelector("#loginUsername").value,
+        password:document.querySelector("#loginPassword").value,
     }
-  }
-};
+    console.log(userObj);
+    fetch("/api/users/login",{
+        method:"POST",
+        body:JSON.stringify(userObj),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    }).then(res=>{
+        if(res.ok){
+            location.reload()
+        } else {
+            console.log(res);
+            alert("Incorrect Username or Password! Try again")
+        }
+    });
+});
 
-document
-  .querySelector('.login-form')
-  .addEventListener('submit', loginFormHandler);
+// sign up route
+signUpBtn.addEventListener("click", e=>{
+    console.log('-----------------sign up btn clicked!-----------------')
+    e.preventDefault();
+    const userObj = {
+        username:document.querySelector("#signUpUsername").value,
+        password:document.querySelector("#signUpPassword").value,
+    }
+    fetch("/api/users/",{
+        method:"POST",
+        body:JSON.stringify(userObj),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    }).then(res =>{
+        if(res.ok){
+            location.reload()
+        } else {
+            console.log(res);
+            console.log(userObj)
+            alert("Something went wrong!")
+        }
+    });
+});

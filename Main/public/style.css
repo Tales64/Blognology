@@ -1,0 +1,53 @@
+:root {
+  --primary: #b0daee;
+  --accent: #d1c55a;
+  --card: #0a0a09;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--accent);
+}
+
+nav {
+  background-color: var(--primary);
+  height: 75px;
+}
+
+nav a, button {
+  background-color: var(--primary);
+  color: var(--card);
+  text-decoration: none;
+  padding: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  margin-left: 2%;
+}
+
+h2 {
+  margin-left: 2%;
+}
+
+#new-post-btn {
+  margin-left: 2%;
+  padding: 1rem;
+}
+
+.card {
+  background-color: var(--card);
+  border: solid;
+}
+
+

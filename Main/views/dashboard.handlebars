@@ -1,42 +1,37 @@
-<h2>Dashboard</h2>
+<h1>Dashboard</h1>
+<div>
+    <h2>{{user.username}}'s Page</h2>
+</div>
 
-<section id="currentBlogs">
-    {{#each blogs}}
+<div>
+    <button id="new-post-btn">Create a New Post!</button>
+    <form id="new-post-form" class="hidden">
+        <input type="text" placeholder="title" name="title" id="post-title"/>
+        <input type="text" placeholder="body" name="body" id="post-body"/>
+        <button id="submit-new-post-btn">Submit</button>
+    </form>
+</div>
 
-    <section class="card">
-        <a href='/blogs/{{id}}' class="card-body">
-
-        <h2 class="card-title">{{title}}</h2>
-        <h5>Posted on {{date}}</h5>
-        <p class="card-text">{{description}}</p>
-        </a>
-    </section>
-    {{/each}}
-</section>
-
-<section id="createNew" class="card">
-    <div class="card-body">
-        
-        <h3 class="'card-title">New Blog</h3>
-        <form id="NewBlog">
-            <div class="card-text"></div>
-            <label for=""title>Title</label>
-            <br>
-            <input type="text" id="blog-title" placeholder="Title">
-            </div>
-            <div class="card-text">
-            <label for="description">Description</label>
-            <br>
-            <textarea id="blog-description" placeholder="Description"></textarea>
-            </div>
-            <div>   
-            <button id="create-button">Create</button>
-            </div>
+{{#each user.Posts}}
+    <div class="card" id={{id}} style="border: solid;margin: 5%;">
+        <div class="title">
+            <h3 style="margin: 1rem;">{{title}}</h3>
+            <p style="padding: 1rem;">{{createdAt}}</p>
+        </div>
+    <p style="padding: 1rem;margin: 0;">{{body}}</p>
+    {{!-- <button class="edit-post-btn" id={{id}}>Edit Post</button> --}}
+    </div>
+    <div class="edit-card hidden" id="edit-{{id}}" style="border: solid;margin: 5%;">
+        <form class="edit-card-form">
+            {{!-- <textarea class="update-title" name="title" placeholder={{title}}/> --}}
+            {{!-- <textarea class="update-body" name="body" placeholder={{body}}/> --}}
+            <input class="update-title" type="text" name="title" placeholder={{title}}/>
+            <input class="update-body" type="text" name="body" placeholder={{body}}/>
+            <button class="update-btn">Update Post</button>
+            <button class="delete-btn">Delete Post</button>
         </form>
     </div>
-</section>
-<form id="newPost">
-    <button> New Post</button>
-</form>
+{{/each}} 
 
-<script src="/js/dashboard.js"></script>
+<script src="/js/dashboard.js"/>
+<script src="/js/logout.js"></script>
