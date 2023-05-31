@@ -1,10 +1,12 @@
 const commentBtn = document.getElementById('commentBtn')
 
+console.log("help")
 
 commentBtn.addEventListener('click',function(e){
     e.preventDefault()
+    console.log("comment button click")
     const commentTxt = document.getElementById('comment-text').value
-    fetch("/api/posts/",{
+    fetch("/api/posts",{
         method:"POST",
         body:JSON.stringify(commentTxt),
         headers:{
