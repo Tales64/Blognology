@@ -4,7 +4,8 @@ const {User} = require('./../models');
 // login/sign up page
 router.get(`/`, async (req,res)=>{
     try {
-        if (req.session.logged_in) {
+      const isLoggedIn = await req.session.logged_in
+         if (isLoggedIn) {
             res.redirect(`/dashboard`)
         }
         res.render(`login`)
