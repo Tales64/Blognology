@@ -50,6 +50,14 @@ This application is legally covered by the  license.
    Start the server then run npm start.
 ## Usage
    Use it to express whatever insight you might have into tech and how it might impact you.
+
+
+![blog](https://github.com/Tales64/Blognology/assets/113705249/b124239b-c899-42e2-9502-1281c832c4fa)
+![Dashboard](https://github.com/Tales64/Blognology/assets/113705249/a35d3de5-eaac-4475-a95c-a0517a28c686)
+![Homepage](https://github.com/Tales64/Blognology/assets/113705249/81ecdf2c-fff1-42db-87f7-122731e9e963)
+![Login](https://github.com/Tales64/Blognology/assets/113705249/40ef722c-14b3-40d7-9600-2e9cae13bf5c)
+
+   
 ## License
 ![badge](https://img.shields.io/badge/license--brightgreen)
 <br />
