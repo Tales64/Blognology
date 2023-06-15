@@ -1,14 +1,14 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('./../models');
+const { User, Blog, Comment } = require('../models');
 
-router.get('/:postId', async (req, res) => {
+router.get('/:blogId', async (req, res) => {
   try {
     if (!req.session.logged_in) {
       res.redirect('login');
       return; // Return after redirecting
     }
-    const postData = await Post.findOne({
-      where: { id: req.params.postId },
+    const blogData = await Blog.findOne({
+      where: { id: req.params.blogId },
       include: [
         {
           model: User,
@@ -26,16 +26,16 @@ router.get('/:postId', async (req, res) => {
       ],
     });
 
-    if (!postData) {
-      res.status(404).json({ msg: `This post doesn't exist!` });
+    if (!blogData) {
+      res.status(404).json({ msg: `This blog doesn't exist!` });
       return;
     }
 
-    console.log(`This is the post data: ${postData}`);
-    const post = postData.get({ plain: true });
-    console.log(post);
-    res.render(`post`, {
-      post: post,
+    console.log(`This is the blog data: ${blogData}`);
+    const blog = blogData.get({ plain: true });
+    console.log(blog);
+    res.render(`blog`, {
+      blog: blog,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -44,7 +44,7 @@ router.get('/:postId', async (req, res) => {
   }
 });
 
-router.post('/:postId', async (req, res) => {
+router.post('/:blogId', async (req, res) => {
   try {
     if (!req.session.logged_in) {
       res.redirect('login');
@@ -53,26 +53,26 @@ router.post('/:postId', async (req, res) => {
     await Comment.create({
       body: req.body.body,
       UserId: req.session.user_id,
-      PostId: req.params.postId,
+      BlogId: req.params.blogId,
     });
-    res.redirect(`/posts/${req.params.postId}`); // Redirect instead of reloading
+    res.redirect(`/blogs/${req.params.blogId}`); // Redirect instead of reloading
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: `${err}` });
   }
 });
 
-// Create new post
+// Create new blog
 router.post('/', async (req, res) => {
   try {
     if (!req.session.logged_in) {
       res.redirect('login');
       return; // Return after redirecting
     }
-    await Post.create({
+    await Blog.create({
       title: req.body.title,
       body: req.body.body,
-      UserId: req.session.user_id,
+      userId: req.session.user_id,
     });
     res.redirect('/'); // Redirect to home page or appropriate route
   } catch (err) {
@@ -80,5 +80,22 @@ router.post('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
+router.delete('/', async (req, res)=>{
+  try{ if (!req.session.logged_in) {
+    res.redirect('login');
+    return; // Return after redirecting
+  }
+  await Blog.destroy({
+    title: req.body.title,
+    body: req.body.body,
+    userId: req.session.user_id,
+  });
+  res.redirect('/'); // Redirect to home page or appropriate route
+} catch (err) {
+  console.log(err);
+  res.status(500).json(err);}
+})
 
 module.exports = router;

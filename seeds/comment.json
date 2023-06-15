@@ -2,16 +2,16 @@
     {
         "body":"This is a great post!",
         "UserId": 2,
-        "PostId": 1
+        "BlogId": 1
     },
     {
-        "body":"This is a great post!",
+        "body":"This is a great Blog!",
         "UserId": 3,
-        "PostId": 2
+        "BlogId": 2
     },
     {
-        "body":"This is a great post!",
+        "body":"This is a great Blog!",
         "UserId": 1,
-        "PostId": 3
+        "BlogId": 3
     }
 ]

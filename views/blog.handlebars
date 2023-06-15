@@ -1,10 +1,10 @@
 <div class="card" style="border: solid;margin: 0 5% 5% 5%;">
     <div class="title">
-        <h3 style="padding: 1rem;margin: 0;">{{post.title}}</h3>
-        <p style="padding: 1rem;margin: 0;">{{post.User.username}}</p>
-        <p style="padding: 1rem;margin: 0;">{{post.createdAt}}</p>
+        <h3 style="padding: 1rem;margin: 0;">{{blog.title}}</h3>
+        <p style="padding: 1rem;margin: 0;">{{blog.User.username}}</p>
+        <p style="padding: 1rem;margin: 0;">{{blog.createdAt}}</p>
     </div>
-<p style="padding: 1rem;margin: 0;">{{post.body}}</p>
+<p style="padding: 1rem;margin: 0;">{{blog.body}}</p>
 <form id="comment-box">
     <input id="comment-text" type="text" name="comment-text" placeholder="Leave a comment!"/>
     <button id="commentBtn">Comment</button>
@@ -12,13 +12,14 @@
 </div>
 <h3 style="margin: 0 5%">Comments:</h3>
 <div class="comments-container">
-{{#each post.Comments}}
+{{#each blog.comments}}
 <div style="border: solid;margin: 0 5% 5% 5%;padding: 1rem;width: 70%">
     <div>
         <h5>{{User.username}}</h5>
         <p>{{createdAt}}</p>
     </div>
     <p>{{body}}</p>
+    
 </div>
 {{/each}}
-</div><script src="/js/post.js"></script>
+</div><script src="/js/blog.js"></script>

@@ -1,19 +1,19 @@
 const router = require('express').Router();
-const { User, Post } = require('../models');
+const { User, Blog } = require('../models');
 
-// get all posts
+// get all Blogs
 router.get(`/`, async (req,res)=>{
     try {
-        const allPosts = await Post.findAll({
+        const allBlogs = await Blog.findAll({
             include: [User]
         })
-        // res.json(allPosts)
-        console.log(`${allPosts} this is before serialization`)
-        const posts = allPosts.map((postArr)=>postArr.get({ plain: true }));
-        console.log(`${posts} this is after serialization`)
-        console.log(allPosts)
+        // res.json(allBlogs)
+        console.log(`${allBlogs} this is before serialization`)
+        const blogs = allBlogs.map((blogArr)=>blogArr.get({ plain: true }));
+        console.log(`${blogs} this is after serialization`)
+        console.log(allBlogs)
         res.render(`homepage`, {
-            posts: posts,
+            blogs: blogs,
             logged_in:req.session.logged_in
         })
     }

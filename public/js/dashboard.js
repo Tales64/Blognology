@@ -7,13 +7,14 @@ newPostBtn.addEventListener("click", function () {
     newPostForm.setAttribute("class", "")
 })
 
+// Create new blog
 submitNewPostBtn.addEventListener("click", function (e) {
     e.preventDefault()
     console.log("clicked submit btn")
     const postTitle = document.getElementById('post-title').value
     const postBody = document.getElementById('post-body').value
     const postObj = {title: postTitle, body: postBody}
-    fetch("/api/posts",{
+    fetch("/api/blogs",{
         method:"POST",
         body:JSON.stringify(postObj),
         headers:{
@@ -32,7 +33,7 @@ submitNewPostBtn.addEventListener("click", function (e) {
 });
 
 
-document.addEventListener("click", (e)=>{
+document.addEventListener("click", function (e) {
     if (e.target.classList.contains("card")) {
         console.log("clicked card")
         e.target.setAttribute("class","hidden");
@@ -41,8 +42,30 @@ document.addEventListener("click", (e)=>{
     }
 });
 
+
+const delButtonHandler = async (event) => {
+    if (event.target.hasAttribute('data-id')) {
+      const id = event.target.getAttribute('data-id');
+  
+      const response = await fetch(`/api/blogs/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        document.location.replace('/blog');
+      } else {
+        alert('Failed to delete project');
+      }
+    }
+  };
+  
+  document
+    .querySelector('.delete-btn')
+    .addEventListener('click', delButtonHandler);
+
+
 const updateBtn = document.getElementsByClassName('update-btn');
 
-updateBtn.addEventListener("click", function (e) {
-    console.log("clicked!")
-})
+updateBtn.addEventListener("click", function (e)  {
+    console.log("clicked!");
+});

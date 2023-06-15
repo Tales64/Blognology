@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User,Post} = require('./../../models')
+const {User,Blog} = require('./../../models')
 
 router.get('/', async (req,res)=>{
     try{
@@ -72,11 +72,11 @@ router.post(`/logout`, (req,res)=> {
   }
 });
 
-// get one user and associated posts
+// get one user and associated blogs
 router.get('/:id', async (req,res)=>{
     try{
         const user = await User.findByPk(req.params.id,{
-            include: [Post]
+            include: [Blog]
         })
         if (!user) {
             res.status(404).json({msg: `This user does not exist!`})

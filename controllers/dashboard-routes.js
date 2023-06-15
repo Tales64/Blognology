@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { User, Post } = require(`../models`)
+const { User, Blog } = require(`../models`)
 
-// Get one user and their posts
+// Get one user and their Blogs
 router.get(`/`, async (req,res)=> {
     try {
         if(!req.session.logged_in){
@@ -11,7 +11,7 @@ router.get(`/`, async (req,res)=> {
         const userData = await User.findOne({
             where: { id: req.session.user_id },
             include: [{
-                model: Post,
+                model: Blog,
             }]
         });
         
